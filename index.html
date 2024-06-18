@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React DOM</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #3485a8, #e52e71);
+        }
+        h1 {
+            color: #f8f5f5;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 40px 0px 40px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+        }
+        .clock {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 24px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #regularDiv {
+            background: linear-gradient(135deg, #3485a8, #e52e71);
+        }
+        #reactDiv {
+            background: linear-gradient(135deg, #3485a8, #e52e71);
+        }
+        input {
+            margin-bottom: 10px;
+            border-radius: 5px;
+            padding: 5px;
+            font-size: 16px;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="font-size: 40px;">Digital Clock</h1>
+    <h1>React DOM Check</h1>
+    <div class="container">
+        <!--A regular div refresh every second to show time-->
+        <div id="regularDiv" class="clock">
+            <input type="text" placeholder="RegularDiv">
+            This should change
+        </div>
+        <!--A div which is being pdated using React-->
+        <div id="reactDiv" class="clock">
+            <input type="text" placeholder="ReactDiv">
+            This should change
+        </div>
+    </div>
+    <script type="text/babel">
+        const rootNode = ReactDOM.createRoot(document.getElementById("reactDiv"));
+
+        function renderThis() {
+            document.getElementById("regularDiv").innerHTML = `<input/><p>${new Date().toString()}(Regular Div)</p>`;
+
+            const myElem = (
+                <div>
+                    <input/>
+                    <p>{new Date().toString()}(React Div)</p>
+                </div>
+            );
+            rootNode.render(myElem);
+        }
+
+        setInterval(renderThis, 1000);
+    </script>
+</body>
+</html>
